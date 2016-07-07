@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/parent_layout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#111111">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:id="@+id/colors_layout"
+            android:layout_centerHorizontal="true">
+
+        </ImageView>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/play"
+            android:src="@drawable/ic_send_black"
+            android:layout_centerInParent="true"
+            android:tint="#FFFFFF"
+            android:contentDescription="@string/play" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tap_to_play"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-light"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/tap_to_play" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your color is"
+        android:id="@+id/your_color_is"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-thin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:alpha="0" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/loading_layout"
+        android:alpha="0">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:indeterminateOnly="true"
+            android:indeterminate="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading ..."
+            android:id="@+id/textView"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-thin" />
+    </LinearLayout>
+
+</RelativeLayout>

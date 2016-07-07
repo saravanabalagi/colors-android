@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/activity_layout">
+    <LinearLayout android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#080808"
+            android:baselineAligned="false">
+
+            <FrameLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/chosenColor"
+                android:layout_margin="10dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="-10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-light"
+                    android:id="@+id/score"
+                    android:gravity="right"
+                    android:layout_gravity="center"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="-10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+1"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif-light"
+                        android:id="@+id/plus_one"
+                        android:gravity="right"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:alpha="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="-10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-1"
+                        android:textColor="#ff0000"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif-light"
+                        android:id="@+id/minus_one"
+                        android:gravity="right"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:alpha="0" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/parent_layout">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:id="@+id/game_over_layout"
+        android:gravity="center_vertical|center_horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_reply"
+            android:tint="#c30606"
+            android:id="@+id/replay" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Over"
+            android:textSize="40sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-thin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/game_over" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap to play again"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-light"
+            android:id="@+id/tap_to_play_again"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatDelegate;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,18 +24,22 @@ import com.example.colors.custom.Animations;
 import com.example.colors.custom.Color;
 import com.example.colors.game.GlobalVariables;
 
+import java.util.Random;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
+
 public class GameActivity extends AppCompatActivity {
 
+    static { AppCompatDelegate.setCompatVectorFromResourcesEnabled(true); }
     private static final int COLOR_CHANGE_STEPS = 20;
 
     private Handler handler = new Handler();
-    private Color currentColor;
-    private Color startColor;
-    private Color endColor;
+    private Color currentColor = new Color();
+    private Color startColor = new Color();
+    private Color endColor = new Color();
     private Color[] colorSet;
     private int count = 0;
 
@@ -50,18 +56,22 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
 
-        startColor = new Color(this, R.color.colorPrimary);
-        endColor = new Color(); endColor.newRandomRGB();
-        colorSet = Color.getIntermediateColors(startColor, endColor, COLOR_CHANGE_STEPS);
-        currentColor = startColor;
+        System.out.println("");
+        System.out.println("Starting activity");
+        for (Color color : Color.standardColors) System.out.println(color.toString());
+        System.out.println("");
+
+        startColor.absorb(Color.standardColors[(new Random()).nextInt(Color.standardColors.length)]);
+        endColor.absorb(Color.standardColors[(new Random()).nextInt(Color.standardColors.length)]);
+        currentColor.absorb(endColor);
 
         handler.post(entryEffects);
 
         colorsLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                GlobalVariables.setChosenColor(currentColor);
-                colorsLayout.setBackgroundColor(android.graphics.Color.parseColor(currentColor.toHexString()));
+                GlobalVariables.setChosenColor(endColor);
+                colorsLayout.setBackgroundColor(android.graphics.Color.parseColor(GlobalVariables.getChosenColor().toHexString()));
 
                 handler.removeCallbacks(flashAnimationLoop);
                 YoYo.with(Techniques.TakingOff).duration(500).playOn(play);
@@ -84,13 +94,17 @@ public class GameActivity extends AppCompatActivity {
 
                 handler.postDelayed(new Runnable() {
                     @Override
-                    public void run() {
-                        startActivity(new Intent(GameActivity.this, LevelActivity.class));
-                    }
+                    public void run() { startActivity(new Intent(GameActivity.this, LevelActivity.class));    }
                 },3000);
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        YoYo.with(Techniques.FadeIn).duration(3500).playOn(parentLayout);
+        super.onResume();
     }
 
     private Runnable entryEffects = new Runnable() {
@@ -107,7 +121,6 @@ public class GameActivity extends AppCompatActivity {
                     YoYo.with(Techniques.Landing).duration(500).playOn(play);
                     YoYo.with(Techniques.FadeInDown).duration(1000).playOn(tapToPlay);
                     handler.postDelayed(flashAnimationLoop,1500);
-
                     handler.removeCallbacks(changeColor);
                     handler.postDelayed(changeColor,1000);
                 }
@@ -132,17 +145,17 @@ public class GameActivity extends AppCompatActivity {
     private Runnable changeColor = new Runnable() {
         @Override
         public void run() {
+            if(count % COLOR_CHANGE_STEPS == 0) {
+                colorsLayout.setBackgroundColor(android.graphics.Color.argb(255,endColor.red,endColor.green,endColor.blue));
+                startColor.absorb(endColor);
+                endColor.absorb(Color.standardColors[(new Random()).nextInt(Color.standardColors.length) % Color.standardColors.length]);
+                colorSet = Color.getIntermediateColors(startColor, endColor, COLOR_CHANGE_STEPS);
+                //System.out.println(startColor + "" + endColor);
+            }
             currentColor.absorb(colorSet[count%COLOR_CHANGE_STEPS]);
             //System.out.println("Applying: "+colorSet[count]);
             colorsLayout.setBackgroundColor(android.graphics.Color.argb(255,currentColor.red,currentColor.green,currentColor.blue));
             count++;
-            if(count % COLOR_CHANGE_STEPS == 0) {
-                colorsLayout.setBackgroundColor(android.graphics.Color.argb(255,endColor.red,endColor.green,endColor.blue));
-                startColor.absorb(endColor);
-                endColor.newRandomRGB();
-                colorSet = Color.getIntermediateColors(startColor, endColor, COLOR_CHANGE_STEPS);
-                //System.out.println(startColor + "" + endColor);
-            }
             handler.postDelayed(changeColor,25);
         }
     };
@@ -213,4 +226,5 @@ public class GameActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
 }

@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 
+import com.example.colors.exceptions.ColorException;
+
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 import java.util.Random;
@@ -15,20 +17,33 @@ import java.util.Random;
  */
 
 public class Color {
+
     public int red;
     public int green;
     public int blue;
     public int alpha;
 
+    public static final Color[] standardColors = {
+            new Color(255, 255, 255),
+            new Color(255, 0, 0),
+            new Color(0, 255, 0),
+            new Color(0, 0, 255),
+            new Color(128, 0, 0),
+            new Color(0, 128, 0),
+            new Color(0, 0, 128),
+            new Color(255,255,0),
+            new Color(255,0,255),
+            new Color(0,255,255),
+            new Color(255,128,0),
+            new Color(128,0,255),
+            new Color(0,128,255)
+    };
+
     public Color() { alpha = 255; red = 0; green = 0; blue = 0; }
+    public Color(int red, int green, int blue) { this.alpha = 255; this.red = red; this.green = green; this.blue = blue; }
+    public Color(int red, int green, int blue, int alpha) { this.alpha = alpha; this.red = red; this.green = green; this.blue = blue; }
     public Color(Context context, int colorResource) { absorbFromResource(context, colorResource); }
 
-    static class ColorException extends Exception {
-        public ColorException() {}
-        public ColorException(String message) { super(message); }
-        public ColorException(Throwable cause) { super(cause); }
-        public ColorException(String message, Throwable cause) { super(message, cause); }
-    }
 
     public static Color[] getIntermediateColors(Color fromColor, Color toColor, int intermediateColorsRequired) {
         try { if(intermediateColorsRequired<1) { throw new ColorException("Intermediate colors required needs to be at least one"); }
@@ -48,18 +63,6 @@ public class Color {
         return color;
     }
 
-    public static Color getBackgroundColor(View view) {
-        Color color = new Color();
-        int backgroundColor = android.graphics.Color.TRANSPARENT;
-        Drawable background = view.getBackground();
-        try {
-            if (background instanceof ColorDrawable) backgroundColor = ((ColorDrawable) background).getColor();
-            else throw new ColorException("Background should be of type ColorDrawable");
-        } catch (ColorException e) { e.printStackTrace(); return color; }
-        color.absorbFromDecimalARGB(backgroundColor);
-        return color;
-    }
-
     public void newRandomRGB() {
         red = new Random().nextInt(255);
         green = new Random().nextInt(255);
@@ -70,125 +73,6 @@ public class Color {
     public void newRandomARGB() {
         newRandomRGB();
         alpha = new Random().nextInt(255);
-    }
-
-    public Color getRGBInverse() {
-        Color color = new Color();
-        color.red = 255 - this.red;
-        color.green = 255 - this.green;
-        color.blue = 255 - this.blue;
-        return color;
-    }
-
-    public Color getRGBHalfInverse() {
-        Color color = new Color();
-        color.red = (this.red + 128) % 256;
-        color.green = (this.green + 128) % 256;
-        color.blue = (this.blue + 128) % 256;
-        return color;
-    }
-
-    public Color getRGInverse() {
-        Color color = new Color();
-        color.red = 255 - this.red;
-        color.green = 255 - this.green;
-        return color;
-    }
-
-    public Color getGBInverse() {
-        Color color = new Color();
-        color.green = 255 - this.green;
-        color.blue = 255 - this.blue;
-        return color;
-    }
-
-    public Color getRBInverse() {
-        Color color = new Color();
-        color.red = 255 - this.red;
-        color.blue = 255 - this.blue;
-        return color;
-    }
-
-    public Color getRGHalfInverse() {
-        Color color = new Color();
-        color.red = (this.red + 128) % 256;
-        color.green = (this.green + 128) % 256;
-        return color;
-    }
-
-    public Color getGBHalfInverse() {
-        Color color = new Color();
-        color.green = (this.green + 128) % 256;
-        color.blue = (this.blue + 128) % 256;
-        return color;
-    }
-
-    public Color getRBHalfInverse() {
-        Color color = new Color();
-        color.red = (this.red + 128) % 256;
-        color.blue = (this.blue + 128) % 256;
-        return color;
-    }
-
-    public Color getRInverse() {
-        Color color = new Color();
-        color.red = 255 - this.red;
-        return color;
-    }
-
-    public Color getGInverse() {
-        Color color = new Color();
-        color.green = 255 - this.green;
-        return color;
-    }
-
-    public Color getBInverse() {
-        Color color = new Color();
-        color.blue = 255 - this.blue;
-        return color;
-    }
-
-    public Color getRHalfInverse() {
-        Color color = new Color();
-        color.red = (this.red + 128) % 256;
-        return color;
-    }
-
-    public Color getGHalfInverse() {
-        Color color = new Color();
-        color.green = (this.green + 128) % 256;
-        return color;
-    }
-
-    public Color getBHalfInverse() {
-        Color color = new Color();
-        color.blue = (this.blue + 128) % 256;
-        return color;
-    }
-
-    public LinkedHashSet<Color> getVisuallyDistinctColorSet() {
-        LinkedHashSet<Color> colorSet = new LinkedHashSet<>();
-        colorSet.add(this);
-        colorSet.add(this.getRInverse());
-        colorSet.add(this.getGInverse());
-        colorSet.add(this.getBInverse());
-        colorSet.add(this.getRGInverse());
-        colorSet.add(this.getGBInverse());
-        colorSet.add(this.getRBInverse());
-        colorSet.add(this.getRGBInverse());
-        return colorSet;
-    }
-
-    public LinkedHashSet<Color> getVisuallyDistinctExtendedColorSet() {
-        LinkedHashSet<Color> colorSet = getVisuallyDistinctColorSet();
-        colorSet.add(this.getRHalfInverse());
-        colorSet.add(this.getGHalfInverse());
-        colorSet.add(this.getBHalfInverse());
-        colorSet.add(this.getRGHalfInverse());
-        colorSet.add(this.getGBHalfInverse());
-        colorSet.add(this.getRBHalfInverse());
-        colorSet.add(this.getRGBHalfInverse());
-        return colorSet;
     }
 
     public void absorb(Color color) { this.alpha = color.alpha; this.red = color.red; this.green = color.green; this.blue = color.blue; }

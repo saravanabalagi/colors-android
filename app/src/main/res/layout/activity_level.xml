@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_layout">
     <LinearLayout android:orientation="vertical"
         android:layout_height="match_parent"
@@ -13,84 +13,158 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#080808"
-            android:baselineAligned="false">
-
-            <FrameLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/chosenColor"
-                android:layout_margin="10dp" />
+            android:baselineAligned="false"
+            android:padding="10dp">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginLeft="-10dp">
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:fontFamily="sans-serif-light"
-                    android:id="@+id/score"
-                    android:gravity="right"
-                    android:layout_gravity="center"
-                    android:padding="10dp" />
+                    android:text="RETRY"
+                    android:id="@+id/retry"
+                    android:textColor="#CCCCCC"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/score_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Score"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="7dp"
+                        android:textColor="#FFFFFF" />
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="15sp"
+                            android:fontFamily="sans-serif-light"
+                            android:id="@+id/score"
+                            android:gravity="right"
+                            android:layout_gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:padding="5dp"
+                            android:textColor="#FFFFFF" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/score">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+1"
+                                android:textColor="@android:color/holo_green_light"
+                                android:textSize="15sp"
+                                android:fontFamily="sans-serif-light"
+                                android:id="@+id/plus_one"
+                                android:gravity="right"
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:alpha="0" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-1"
+                                android:textColor="#ff0000"
+                                android:textSize="15sp"
+                                android:fontFamily="sans-serif-light"
+                                android:id="@+id/minus_one"
+                                android:gravity="right"
+                                android:layout_gravity="center"
+                                android:padding="5dp"
+                                android:alpha="0" />
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    app:srcCompat="@drawable/splash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/chosenColor"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EXIT"
+                    android:id="@+id/exit"
+                    android:textColor="#CCCCCC"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="-10dp" >
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/score_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+1"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp"
-                        android:fontFamily="sans-serif-light"
-                        android:id="@+id/plus_one"
-                        android:gravity="right"
-                        android:layout_gravity="center"
-                        android:padding="10dp"
-                        android:alpha="0" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="-10dp" >
+                        android:text="Best"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="7dp"
+                        android:textColor="#FFFFFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-1"
-                        android:textColor="#ff0000"
-                        android:textSize="15sp"
-                        android:fontFamily="sans-serif-light"
-                        android:id="@+id/minus_one"
-                        android:gravity="right"
-                        android:layout_gravity="center"
-                        android:padding="10dp"
-                        android:alpha="0" />
+                        android:text="0"
+                        android:id="@+id/best"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="5dp"
+                        android:layout_marginTop="-10dp"
+                        android:textColor="#FFFFFF" />
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/parent_layout">
+            android:id="@+id/parent_layout"
+            android:padding="5dp">
 
         </LinearLayout>
     </LinearLayout>
@@ -107,7 +181,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/ic_reply"
+            app:srcCompat="@drawable/ic_reply"
             android:tint="#c30606"
             android:id="@+id/replay" />
 
@@ -135,4 +209,5 @@
             android:layout_marginRight="10dp" />
 
     </LinearLayout>
+
 </RelativeLayout>
